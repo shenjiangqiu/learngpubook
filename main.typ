@@ -2,7 +2,12 @@
 
 #set text(lang: "en")
 #show link: underline
-
+#show link: set text(fill: blue)
+#show raw: block.with(
+  fill: luma(240), // 灰色背景，数值越小越暗
+  inset: 2pt, // 内边距
+  // radius: 7pt            // 圆角
+)
 #show: ilm.with(
   title: [MTU MRI gpu cluster usage tutorial],
   author: "Jiangqiu Shen",
@@ -16,25 +21,34 @@
   listing-index: (enabled: true),
   chapter-pagebreak: false,
   appendix: (
-    enabled: true,
+    enabled: false,
     body: [#include "appendix.typ"],
   ),
 )
 
 = Introduction
 
-Welcome to the MTU MRI GPU Cluster Tutorial. This guide is designed for students who are new to concepts such as SSH, GPU computing, Python, PyTorch, and working with the MRI cluster at Michigan Tech. The tutorial is organized in a modular way, so you can easily find the information you need. For each topic, you will find links to detailed chapters and appendices, as well as practical examples.
+Welcome to the MTU MRI GPU Cluster Tutorial. This guide is designed for students who are new to concepts such as SSH, GPU computing, Python, PyTorch, and working with the MRI cluster at Michigan Tech. The tutorial is organized in a modular way, so you can easily find the information you need. For each topic, you will find links to detailed chapters.
 
-#blockquote[
-  If you are new to any of the following topics, please refer to the corresponding chapters:
-  - #link(<basiccmd>)[Basic CMD]
-  - #link(<ssh>)[SSH: Secure Shell]
-  - #link(<file-transfer>)[Transferring Files: SCP and GUI Tools]
-  - #link(<python-conda>)[Python and Conda Environments]
-  - #link(<mri-cluster>)[Using the MRI Cluster]
-  - #link(<slurm>)[Submitting Jobs with SLURM]
-  - [Appendix: Platform-specific Guides (Mac, Windows, Linux)](appendix.typ)
-]
+First of all, We are going to go throught a quick example of writing a simple python program, testing it locally, browse the MTU MRI cluster to find available resources, finnaly submit the job to the cluster using SLURM.
+
+Through this example, you can click any link to the detailed chapter if you want to learn more about a specific topic. Like #link(<ssh>)[SSH], #link(<python>)[Python], #link(<pytorch>)[PyTorch], #link(<slurm>)[SLURM], etc.
+
+If you have any questions, please feel free to contact me (Jiangqiu Shen) at `jshen2@mtu.edu`
+= A Step By Step Example
+== Create your GPU application
+You can first create a simple project folder on your local machine, and use your favorite IDE to open it. For example, you can use your favorite #link(<shell>)[terminal and shell] and run some #link(<basiccmd>)[commands] to create A folder named `my_mri_project` in your home directory, and open it with #link(<vscode>)[VSCode].
+
+
+```bash
+cd ~;
+mkdir my_mri_project;
+code my_mri_project;
+```
+
+
+== Browse the MRI cluster to find available resources
+== Write a SLURM script to submit your job
 
 = Basic Knowledge
 
@@ -174,22 +188,8 @@ sbatch myslurm.sh
 - `squeue -u yourusername`: Check your jobs.
 - `sinfo`: Check partitions.
 
-= Example Workflow: Local to Cluster
-
-Suppose you are using Windows:
-1. Install Python and test your script locally (CPU).
-2. Write a Python script and a SLURM script as above.
-3. Use WinSCP to transfer files to the cluster. (See [Appendix: File Transfer Tools](appendix.typ))
-4. Log in with SSH and submit your job with `sbatch`.
-5. Check job status with `squeue`.
-
-#blockquote[
-  TODO: Add figures for WinSCP, SSH login, and SLURM job submission.
-]
-
-For Mac and Linux users, see [Appendix: File Transfer Tools](appendix.typ).
-
-= 9. Basic Linux Commands <basiccmd>
+= Useful Tips
+== Basic Shell Commands <basiccmd>
 
 - `pwd`: Show current directory
 - `ls`: List files
@@ -197,10 +197,7 @@ For Mac and Linux users, see [Appendix: File Transfer Tools](appendix.typ).
 - `cp`, `mv`, `rm`: Copy, move, remove files
 - `cat`, `less`: View file contents
 - `nano`, `vim`: Edit files
-
-= 10. More Resources
-
-- [Appendix: SSH for Mac, Windows, Linux](appendix.typ)
-- [Appendix: File Transfer Tools](appendix.typ)
-- [Appendix: Python/Conda on Different OS](appendix.typ)
-- [Appendix: Troubleshooting](appendix.typ  )
+== Terminal and Shell <shell>
+== VSCode <vscode>
+== Python <python>
+== PyTorch and GPU <pytorch>
