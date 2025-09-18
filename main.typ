@@ -30,13 +30,15 @@
 
 Welcome to the MTU MRI GPU Cluster Tutorial. This guide is designed for students who are new to concepts such as SSH, GPU computing, Python, PyTorch, and working with the MRI cluster at Michigan Tech. The tutorial is organized in a modular way, so you can easily find the information you need. For each topic, you will find links to detailed chapters.
 
-First of all, We are going to go throught a quick example of writing a simple python program, testing it locally, browse the MTU MRI cluster to find available resources, finnaly submit the job to the cluster using SLURM.
+First of all, We are going to go throught a quick example of #link(<write>)[writing a simple python program], testing it locally, #link(<browse>)[browse the MTU MRI cluster] to find available resources, and finally #link(<writeslurm>)[write a SLURM script] to submit the job to the cluster using SLURM.
 
 Through this example, you can click any link to the detailed chapter if you want to learn more about a specific topic. Like #link(<ssh>)[SSH], #link(<python>)[Python], #link(<pytorch>)[PyTorch], #link(<slurm>)[SLURM], etc.
 
-If you have any questions, please feel free to contact me (Jiangqiu Shen) at `jshen2@mtu.edu`
+If you have any questions, please feel free to contact me (Jiangqiu Shen) at `jshen2@mtu.edu`.
+
+
 = A Step By Step Example
-== Create your GPU application
+== Create your GPU application<write>
 You can first create a simple project folder on your local machine, and use your favorite IDE to open it. For example, you can use your favorite #link(<shell>)[terminal and shell] and run some #link(<basiccmd>)[commands] to create A folder named `my_mri_project` in your home directory, and open it with #link(<vscode>)[VSCode].
 
 
@@ -46,9 +48,23 @@ mkdir my_mri_project;
 code my_mri_project;
 ```
 
+Then create a python file named `myprog.py` in the folder, and write a simple PyTorch program to test if the GPU is available. For example here, I created a simple python program to check if CUDA is available.
 
-== Browse the MRI cluster to find available resources
-== Write a SLURM script to submit your job
+```python
+import torch
+
+if __name__ == "__main__":
+    print("CUDA Available: ", torch.cuda.is_available())
+    print("GPU Name: ", torch.cuda.get_device_name(0))
+
+
+```
+
+before running the program, you may need to test it locally. To run this python program, you need to have #link(<python>)[Python] and #link(<pytorch>)[PyTorch] installed on your local machine. You can use #link(<python-conda>)[Conda] to #link(<create-env>)[create a python environment] and install PyTorch.
+
+
+== Browse the MRI cluster to find available resources<browse>
+== Write a SLURM script to submit your job <writeslurm>
 
 = Basic Knowledge
 
@@ -131,7 +147,7 @@ module avail
 module load Python/3.9.5-GCCcore-10.3.0
 ```
 
-- To create a Conda environment:
+- To create a Conda environment: <create-env>
 ```bash
 conda create -n myenv python=3.9
 conda activate myenv
