@@ -287,6 +287,7 @@ For comparison, this is how the same table would look with Typst's default styli
       let user = ("Adrian", 38);
       println!("User {} is {} years old", user.0, user.1);
 
+  
       // tuples within tuples
       let employee = (("Adrian", 38), "die Mobiliar");
       println!("User {} is {} years old and works for {}", employee.0.1, employee.0.1, employee.1);
@@ -294,11 +295,11 @@ For comparison, this is how the same table would look with Typst's default styli
   ```
 ]
 
-#show raw: set text(font: "Fira Mono")
+#show raw: set text(font: "JetBrainsMono NF")
 For comparison, here is what `code` in Fira Mono looks like:
 #snip("Code snippet typeset in Fira Mono font")
 
-#show raw: set text(font: ("Iosevka", "Fira Mono"))
+#show raw: set text(font: ("DejaVu Sans Mono"))
 and here is how the same `code` looks in Iosevka:
 #snip("Code snippet typeset in Iosevka font")
 

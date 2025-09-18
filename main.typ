@@ -1,13 +1,9 @@
 #import "@preview/ilm:1.4.1": *
 
 #set text(lang: "en")
-#show link: underline
-#show link: set text(fill: blue)
-#show raw: block.with(
-  fill: luma(240), // 灰色背景，数值越小越暗
-  inset: 2pt, // 内边距
-  // radius: 7pt            // 圆角
-)
+
+
+
 #show: ilm.with(
   title: [MTU MRI gpu cluster usage tutorial],
   author: "Jiangqiu Shen",
@@ -26,11 +22,19 @@
   ),
 )
 
+
+#show link: set text(fill: blue)
+
+#show raw: set text(font: "JetBrainsMono NFM", weight: "bold")
+
 = Introduction
 
 Welcome to the MTU MRI GPU Cluster Tutorial. This guide is designed for students who are new to concepts such as SSH, GPU computing, Python, PyTorch, and working with the MRI cluster at Michigan Tech. The tutorial is organized in a modular way, so you can easily find the information you need. For each topic, you will find links to detailed chapters.
 
-First of all, We are going to go throught a quick example of #link(<write>)[writing a simple python program], testing it locally, #link(<browse>)[browse the MTU MRI cluster] to find available resources, and finally #link(<writeslurm>)[write a SLURM script] to submit the job to the cluster using SLURM.
+First of all, We are going to go throught a quick example of running a python program in MTU MRI Cluster. This example inlcudes 3 stpes:
+1. #link(<write>)[writing a simple python program], testing it locally.
+2. #link(<browse>)[browse the MTU MRI cluster] to find available resources.
+3. finally #link(<writeslurm>)[write a SLURM script] to submit the job to the cluster using SLURM.
 
 Through this example, you can click any link to the detailed chapter if you want to learn more about a specific topic. Like #link(<ssh>)[SSH], #link(<python>)[Python], #link(<pytorch>)[PyTorch], #link(<slurm>)[SLURM], etc.
 
@@ -38,7 +42,22 @@ If you have any questions, please feel free to contact me (Jiangqiu Shen) at `js
 
 
 = A Step By Step Example
-== Create your GPU application<write>
+== Create your GPU Application<write>
+=== Install Python and PyTorch Locally
+A fast way to get started is using #link(<python-conda>)[Conda] to create a python environment and install PyTorch.
+1. You need to install Conda first. See #link(<python-conda>)[Python and Conda] chapter for details.
+2. Run these commands in your terminal to create a conda environment named `myenv` and install PyTorch. Note that you may need different method to install pytorch depending on your local machine. Here I assume you have a *NVIDIA GPU *with *CUDA 12.9* installed within *Linux* or *Windows*. Please refer to #link("https://pytorch.org/get-started/locally/")[Pytorch Official Website] to find the right command for your machine. If you do not have a NVIDIA GPU, you can install the CPU version of PyTorch by running `pip3 install torch torchvision torchaudio` instead.
+
+Example commands:
+```bash
+# Create the conda environment and install python
+conda create -n myenv python
+conda activate myenv
+# Install PyTorch with CUDA support
+pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu129
+
+```
+=== Write a Simple Python Program
 You can first create a simple project folder on your local machine, and use your favorite IDE to open it. For example, you can use your favorite #link(<shell>)[terminal and shell] and run some #link(<basiccmd>)[commands] to create A folder named `my_mri_project` in your home directory, and open it with #link(<vscode>)[VSCode].
 
 
@@ -49,21 +68,44 @@ code my_mri_project;
 ```
 
 Then create a python file named `myprog.py` in the folder, and write a simple PyTorch program to test if the GPU is available. For example here, I created a simple python program to check if CUDA is available.
+#figure(caption: "A sample python code to detect GPU availability")[
+  ```python
+  # ~/my_mri_project/myprog.py
+  import torch
 
-```python
-import torch
+  if __name__ == "__main__":
+      gpu_available = torch.cuda.is_available()
+      if gpu_available:
+          print("CUDA is available. You can use GPU for your computations.")
+      else:
+          print("CUDA is not available. You will use CPU for your computations.")
+      device = torch.device("cuda:0" if gpu_available else "cpu")
+      print(f"Using device: {device}")
+      x = torch.rand(5, 3).to(device)
+      y = torch.rand(5, 3).to(device)
+      z = x + y
+      print("Result of x + y is:")
+      print(z)
 
-if __name__ == "__main__":
-    print("CUDA Available: ", torch.cuda.is_available())
-    print("GPU Name: ", torch.cuda.get_device_name(0))
+
+  ```
+]
 
 
+Now you can run the program locally to test if it works. Make sure you have activated the conda environment `myenv` that has PyTorch installed.
+
+```bash
+cd ~/my_mri_project;
+# make sure you have activated the conda environment. If you have already activated it, you can skip this step.
+conda activate myenv;
+python myprog.py;
 ```
 
-before running the program, you may need to test it locally. To run this python program, you need to have #link(<python>)[Python] and #link(<pytorch>)[PyTorch] installed on your local machine. You can use #link(<python-conda>)[Conda] to #link(<create-env>)[create a python environment] and install PyTorch.
-
-
 == Browse the MRI cluster to find available resources<browse>
+=== Log in to the MRI Cluster
+=== Run Commands to Browse Available Resources
+=== Record Available Resources
+
 == Write a SLURM script to submit your job <writeslurm>
 
 = Basic Knowledge
