@@ -5,12 +5,13 @@
 
 
 #show: ilm.with(
-  title: [MTU MRI gpu cluster usage tutorial],
+  title: [A Practical Guide to Using the MTU MRI GPU Cluster],
   author: "Jiangqiu Shen",
   date: datetime(year: 2025, month: 09, day: 16),
   abstract: [
     This document is a tutorial for using the MTU MRI GPU cluster.
     It covers topics such as accessing the cluster, submitting jobs, and managing data.
+    It contains a step-by-step example of running a simple Python program on the cluster.
   ],
   figure-index: (enabled: true),
   table-index: (enabled: true),
@@ -23,7 +24,7 @@
 )
 
 
-#show link: set text(fill: blue)
+#show link: set text(fill: blue,weight: "bold")
 
 #show raw: set text(font: "JetBrainsMono NFM", weight: "bold")
 
@@ -38,10 +39,12 @@ First of all, We are going to go throught a quick example of running a python pr
 
 Through this example, you can click any link to the detailed chapter if you want to learn more about a specific topic. Like #link(<ssh>)[SSH], #link(<python-conda>)[Python,Conda,pytorch], #link(<slurm>)[SLURM], and #link(<basiccmd>)[Basic Linux Commands] etc.
 
+*Please read and follow @examples carefully*, and follow the links to the detailed chapters if you want to learn more about a specific topic.
+
 If you have any questions, please feel free to contact me (Jiangqiu Shen) at `jshen2@mtu.edu`.
 
 
-= A Step By Step Example
+= A Step By Step Example <examples>
 == Create your GPU Application<write>
 === Install Python and PyTorch Locally
 A fast way to get started is using #link(<python-conda>)[Conda] to create a python environment and install PyTorch.
